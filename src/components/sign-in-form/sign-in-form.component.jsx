@@ -39,9 +39,18 @@ const SignIn = () => {
         email,
         password
       );
-      console.log(response);
     } catch (error) {
-      console.log("Error in creating user", error.message);
+      // console.log("Error in creating user", error.message);
+      switch (error.code) {
+        case "auth/wrong-password":
+          alert("Wrong email or password");
+          break;
+        case "auth/user-not-found":
+          alert("Email is not registered");
+          break;
+        default:
+          console.log(error.code);
+      }
     }
   };
 
@@ -76,7 +85,7 @@ const SignIn = () => {
         />
         <div className="buttons-container">
           <Button type="submit">Sign in</Button>
-          <Button buttonType="google" onClick={signInWithGoogle}>
+          <Button type="button" buttonType="google" onClick={signInWithGoogle}>
             Google sign in
           </Button>
         </div>
