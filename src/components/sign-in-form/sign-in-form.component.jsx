@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import {
   signInWithGooglePopup,
@@ -11,6 +11,8 @@ import Button from "../button/button.component";
 
 import "./sign-in-form-styles.scss";
 
+import { UserContext } from "../../context/user.context";
+
 const defaultFormField = {
   displayName: "",
   email: "",
@@ -21,6 +23,7 @@ const defaultFormField = {
 const SignIn = () => {
   const [formField, setFormField] = useState(defaultFormField);
   const { displayName, email, password, confirmPassword } = formField;
+  const { setCurrentUser } = useContext(UserContext);
 
   const resetFormField = () => {
     setFormField(defaultFormField);
@@ -29,16 +32,19 @@ const SignIn = () => {
   const signInWithGoogle = async () => {
     const { user } = await signInWithGooglePopup();
     await createUserDocRefFromAuth(user);
+    setCurrentUser(user);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
+      const { user } = await signInAuthUserWithEmailAndPassword(
         email,
         password
       );
+      setCurrentUser(user);
+      resetFormField();
     } catch (error) {
       // console.log("Error in creating user", error.message);
       switch (error.code) {
