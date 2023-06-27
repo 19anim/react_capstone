@@ -20,7 +20,6 @@ export const UserProvider = ({ children }) => {
       if (user) {
         createUserDocRefFromAuth(user);
       }
-      console.log(user);
       setCurrentUser(user);
     });
 
