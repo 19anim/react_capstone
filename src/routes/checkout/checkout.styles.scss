@@ -2,21 +2,32 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  justify-content: center;
+  width: 55%;
+  margin: auto;
 
-  .checkout-item {
-    width: 70%;
+  .checkout-header{
+    width: 100%;
     display: flex;
-    align-items: center;
+    flex-direction: row;
     justify-content: space-between;
-    margin: 15px 0px;
+    border-bottom: 1px solid gray;
+    padding: 10px 0;
 
-    img {
-      width: 30%;
-    }
+    .header-block {
+      text-transform: capitalize;
+      width: 23%;
 
-    .action-button {
-      cursor: pointer;
+      &:last-child {
+        width: 8%;
+      }
     }
+    
+  }
+
+  .total {
+    margin-top: 30px;
+    margin-left: auto;
+    font-size: 36px;
   }
 }
